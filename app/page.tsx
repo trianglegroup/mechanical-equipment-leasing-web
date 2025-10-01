@@ -130,9 +130,7 @@ export default function Page() {
           <TabsContent value="en">
             <div className="relative">
               <h1 className="max-w-3xl text-6xl font-light leading-tight tracking-tight">
-                Mechanical Equipment
-                <br />
-                Rental Service
+                Triangle Rental
               </h1>
 
               <div className="mt-24 flex justify-between">
@@ -272,9 +270,7 @@ export default function Page() {
           <TabsContent value="zh">
             <div className="relative">
               <h1 className="max-w-3xl text-6xl font-light leading-tight tracking-tight">
-                机械设备
-                <br />
-                租赁服务
+                三角租赁
               </h1>
 
               <div className="mt-24 flex justify-between">
