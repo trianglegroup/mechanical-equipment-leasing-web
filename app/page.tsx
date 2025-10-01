@@ -11,25 +11,25 @@ const products = [
   },
   {
     id: 2,
-    name: "承载量14000 lbs 拖车Trailer",
+    name: "14000 lbs Capacity Trailer",
     price: "$100/day",
     image: "/2.jpg",
   },
   {
     id: 3,
-    name: "RV 房车",
+    name: "RV Camper",
     price: "$200/day",
     image: "/3.jpg",
   },
   {
     id: 4,
-    name: "拖挂车",
+    name: "Trailer",
     price: "$150/day",
     image: "/4.jpg",
   },
   {
     id: 5,
-    name: "割树机",
+    name: "Tree Cutter",
     price: "$100/day",
     image: "/5.jpg",
   },
@@ -59,7 +59,7 @@ const products = [
   },
   {
     id: 10,
-    name: "日本挖掘机 Yanmar excavator",
+    name: "Yanmar excavator",
     price: "$175/day",
     image: "/10.jpg",
   },
@@ -71,7 +71,7 @@ const products = [
   },
   {
     id: 12,
-    name: "大Trailer",
+    name: "Large Trailer",
     price: "$100/day",
     image: "/12.jpg",
   },
@@ -83,7 +83,7 @@ const products = [
   },
   {
     id: 14,
-    name: "JCB 挖掘机 JCB excavator",
+    name: "JCB excavator",
     price: "$175/day",
     image: "/14.jpg",
   },
@@ -108,7 +108,7 @@ export default function Page() {
             onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
             className="text-sm hover:underline cursor-pointer"
           >
-            联系我们
+            Contact Us
           </button>
           <button className="flex flex-col space-y-1">
             <span className="h-0.5 w-6 bg-black"></span>
@@ -126,9 +126,9 @@ export default function Page() {
 
         <div className="relative">
           <h1 className="max-w-3xl text-6xl font-light leading-tight tracking-tight">
-            机械设备
+            Mechanical Equipment
             <br />
-            租赁服务
+            Rental Service
           </h1>
 
           <div className="mt-24 flex justify-between">
@@ -139,28 +139,23 @@ export default function Page() {
                 onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
               >
                 <span className="relative">
-                  咨询租赁方案
+                  Consult Rental Plan
                   <div className="absolute -left-4 -right-4 -top-4 -bottom-4 animate-spin-slow rounded-full border border-black opacity-50"></div>
                 </span>
               </Button>
               <p className="mt-8 text-sm leading-relaxed text-gray-600">
-                我们提供各类工程机械设备租赁服务，包括挖掘机、装载机、起重机等专业设备。以优质的设备状态、合理的租赁价格和专业的技术支持，为您的工程项目保驾护航。
+                We provide a variety of construction machinery and equipment rental services, including excavators, loaders, cranes, and other professional equipment. With high-quality equipment, reasonable rental prices, and professional technical support, we ensure the success of your engineering projects.
               </p>
             </div>
 
-            <div className="flex items-end">
-              <div className="flex items-center space-x-2">
-                <span className="text-sm">关于我们</span>
-                <span className="h-px w-12 bg-black"></span>
-              </div>
-            </div>
+
           </div>
 
 
           <section className="mt-32">
-            <h2 className="text-4xl font-light mb-8">设备展示</h2>
+            <h2 className="text-4xl font-light mb-8">Equipment Display</h2>
             <p className="max-w-xl text-sm leading-relaxed text-gray-600 mb-16">
-              我们提供各类专业工程机械设备，所有设备均经过严格检测和维护，确保为您的项目提供可靠的机械支持。
+              We offer a wide range of professional construction machinery. All our equipment undergoes rigorous inspection and maintenance to ensure reliable support for your project.
             </p>
 
             {/* Products Grid */}
@@ -188,9 +183,9 @@ export default function Page() {
 
           {/* Contact Section */}
           <section id="contact" className="mt-32 mb-16">
-            <h2 className="text-4xl font-light mb-8 text-center">联系我们</h2>
+            <h2 className="text-4xl font-light mb-8 text-center">Contact Us</h2>
             <p className="max-w-xl text-sm leading-relaxed text-gray-600 mb-16 text-center mx-auto">
-              我们随时为您提供专业的机械设备租赁咨询服务。无论您有任何问题或需求，都可以通过以下方式联系我们。
+              We are always ready to provide you with professional consulting services for mechanical equipment leasing. If you have any questions or needs, you can contact us in the following ways.
             </p>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
@@ -207,8 +202,8 @@ export default function Page() {
                       />
                     </svg>
                   </div>
-                  <h3 className="text-lg font-medium mb-2">电话咨询</h3>
-                  <p className="text-sm text-gray-600 mb-3">工作日 9:00-18:00</p>
+                  <h3 className="text-lg font-medium mb-2">Phone Consultation</h3>
+                  <p className="text-sm text-gray-600 mb-3">Weekdays 9:00-18:00</p>
                   <p className="text-lg font-light">919-949-6226</p>
                 </CardContent>
               </Card>
@@ -225,8 +220,8 @@ export default function Page() {
                       />
                     </svg>
                   </div>
-                  <h3 className="text-lg font-medium mb-2">邮箱联系</h3>
-                  <p className="text-sm text-gray-600 mb-3">24小时在线接收</p>
+                  <h3 className="text-lg font-medium mb-2">Email Contact</h3>
+                  <p className="text-sm text-gray-600 mb-3">24/7 Online Reception</p>
                   <p className="text-lg font-light">sniusanjiaoacc@gmail.com</p>
                 </CardContent>
               </Card>
@@ -249,8 +244,8 @@ export default function Page() {
                       />
                     </svg>
                   </div>
-                  <h3 className="text-lg font-medium mb-2">公司地址</h3>
-                  <p className="text-sm text-gray-600 mb-3">欢迎实地考察</p>
+                  <h3 className="text-lg font-medium mb-2">Company Address</h3>
+                  <p className="text-sm text-gray-600 mb-3">Welcome to visit</p>
                   <p className="text-lg font-light">1601 Walnut St Ste 201<br />Cary, NC 27511</p>
                 </CardContent>
               </Card>
@@ -258,7 +253,7 @@ export default function Page() {
 
             {/* Footer */}
             <div className="mt-16 pt-8 border-t border-gray-200 text-center">
-              <p className="text-sm text-gray-500">© 2024 专业机械设备租赁. 保留所有权利.</p>
+              <p className="text-sm text-gray-500">© 2024 Professional Mechanical Equipment Leasing. All rights reserved.</p>
             </div>
           </section>
         </div>

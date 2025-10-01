@@ -5,9 +5,8 @@ import { Analytics } from '@vercel/analytics/next'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: '机械设备租赁服务',
-  description: '提供各类工程机械设备租赁服务，包括挖掘机、拖车、房车等专业设备',
-  generator: 'v0.app',
+  title: 'Mechanical Equipment Leasing Service',
+  description: 'Providing rental services for various construction machinery and equipment, including excavators, trailers, RVs, and other professional equipment',
 }
 
 export default function RootLayout({
