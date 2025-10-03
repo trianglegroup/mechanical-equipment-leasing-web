@@ -225,7 +225,7 @@ export default function Page() {
                       </div>
                       <h3 className="text-lg font-medium mb-2">Email Contact</h3>
                       <p className="text-sm text-gray-600 mb-3">24/7 Online Reception</p>
-                      <p className="text-lg font-light">sniusanjiaoacc@gmail.com</p>
+                      <p className="text-lg font-light">niusteve16@gmail.com</p>
                     </CardContent>
                   </Card>
                   <Card className="text-center">
@@ -254,7 +254,7 @@ export default function Page() {
                       </div>
                       <h3 className="text-lg font-medium mb-2">Company Address</h3>
                       <p className="text-sm text-gray-600 mb-3">Welcome to visit</p>
-                      <p className="text-lg font-light">1601 Walnut St Ste 201<br />Cary, NC 27511</p>
+                      <p className="text-lg font-light">1094 Silk Hope Liberty Road, Liberty, NC 27298</p>
                     </CardContent>
                   </Card>
                 </div>
