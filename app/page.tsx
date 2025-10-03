@@ -7,26 +7,26 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 const products = [
   {
     id: 1,
-    name: "Yanmar VIO35-6A Mini Excavator",
-    price: "$175/day",
+    name: "GEHL skid steer",
+    price: "$200/day",
     image: "/1.jpg",
   },
   {
     id: 2,
-    name: "14000 lbs Capacity Trailer",
+    name: "14000 lbs Trailer",
     price: "$100/day",
     image: "/2.jpg",
   },
   {
     id: 3,
-    name: "RV Camper",
+    name: "2008 Dutchman",
     price: "$200/day",
     image: "/3.jpg",
   },
   {
     id: 4,
-    name: "Trailer",
-    price: "$150/day",
+    name: "2022 Cougar Camper",
+    price: "$100/day",
     image: "/4.jpg",
   },
   {
@@ -37,62 +37,62 @@ const products = [
   },
   {
     id: 6,
-    name: "Kubota U27-4 Mini Excavator",
+    name: "Box Trailer",
     price: "$175/day",
     image: "/6.jpg",
   },
   {
     id: 7,
-    name: "Small Trailer",
-    price: "$100/day",
+    name: "JCB heavy Duty Skid Steer",
+    price: "$200/day",
     image: "/7.jpg",
   },
   {
     id: 8,
-    name: "Kubota SVL75-2 Skid Steer",
-    price: "$200/day",
+    name: "Heavy Duty Brush hog",
+    price: "$100/day",
     image: "/8.jpg",
   },
   {
     id: 9,
-    name: "Small Trailer",
-    price: "$100/day",
+    name: "2008 Toyota Tundra Truck",
+    price: "$200/day",
     image: "/9.jpg",
   },
   {
     id: 10,
-    name: "Yanmar excavator",
+    name: "Yanmar VIO35-6A Excavator",
     price: "$175/day",
     image: "/10.jpg",
   },
   {
     id: 11,
-    name: "Small Trailer",
-    price: "$100/day",
+    name: "John Deere Tractor",
+    price: "$200/day",
     image: "/11.jpg",
   },
   {
     id: 12,
-    name: "Large Trailer",
+    name: "Heavy Duty Trailer 15000 lbs",
     price: "$100/day",
     image: "/12.jpg",
   },
   {
     id: 13,
-    name: "Small Trailer",
-    price: "$100/day",
+    name: "F350 Super Duty Truck",
+    price: "$200/day",
     image: "/13.jpg",
   },
   {
     id: 14,
     name: "JCB excavator",
-    price: "$175/day",
+    price: "$200/day",
     image: "/14.jpg",
   },
   {
     id: 15,
-    name: "Small Trailer",
-    price: "$100/day",
+    name: "15 seats minibus with wheel-chair access",
+    price: "$200/day",
     image: "/15.jpg",
   },
 ]
@@ -152,7 +152,7 @@ export default function Page() {
               </div>
 
               <section className="mt-32">
-                <h2 className="text-4xl font-light mb-8">Equipment Display</h2>
+                <h2 className="text-4xl font-light mb-8">Equipment List</h2>
                 <p className="max-w-xl text-sm leading-relaxed text-gray-600 mb-16">
                   We offer a wide range of professional construction machinery. All our equipment undergoes rigorous inspection and maintenance to ensure reliable support for your project.
                 </p>
