@@ -26,7 +26,7 @@ const products = [
   {
     id: 4,
     name: "2022 Cougar Camper",
-    price: "$100/day",
+    price: "$200/day",
     image: "/4.jpg",
   },
   {
@@ -62,7 +62,7 @@ const products = [
   {
     id: 10,
     name: "Yanmar VIO35-6A Excavator",
-    price: "$175/day",
+    price: "$200/day",
     image: "/10.jpg",
   },
   {
