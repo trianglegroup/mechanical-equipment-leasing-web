@@ -1,105 +1,260 @@
 "use client"
 
+import { useEffect, useRef, useState } from "react"
+
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
+import {
+  Dialog,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogDescription,
+  DialogTitle,
+} from "@/components/ui/dialog"
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 
-const products = [
+type Product = {
+  id: number
+  name: string
+  pricePerDay: number
+  image: string
+}
+
+const products: Product[] = [
   {
     id: 1,
     name: "GEHL skid steer",
-    price: "$200/day",
+    pricePerDay: 200,
     image: "/1.jpg",
   },
   {
     id: 2,
     name: "14000 lbs Trailer",
-    price: "$100/day",
+    pricePerDay: 100,
     image: "/2.jpg",
   },
   {
     id: 3,
     name: "2008 Dutchman",
-    price: "$200/day",
+    pricePerDay: 200,
     image: "/3.jpg",
   },
   {
     id: 4,
     name: "2022 Cougar Camper",
-    price: "$200/day",
+    pricePerDay: 200,
     image: "/4.jpg",
   },
   {
     id: 5,
     name: "Tree Cutter",
-    price: "$100/day",
+    pricePerDay: 100,
     image: "/5.jpg",
   },
   {
     id: 6,
     name: "Box Trailer",
-    price: "$175/day",
+    pricePerDay: 175,
     image: "/6.jpg",
   },
   {
     id: 7,
     name: "JCB heavy Duty Skid Steer",
-    price: "$200/day",
+    pricePerDay: 200,
     image: "/7.jpg",
   },
   {
     id: 8,
     name: "Heavy Duty Brush hog",
-    price: "$100/day",
+    pricePerDay: 100,
     image: "/8.jpg",
   },
   {
     id: 9,
     name: "2008 Toyota Tundra Truck",
-    price: "$200/day",
+    pricePerDay: 200,
     image: "/9.jpg",
   },
   {
     id: 10,
     name: "Yanmar VIO35-6A Excavator",
-    price: "$200/day",
+    pricePerDay: 200,
     image: "/10.jpg",
   },
   {
     id: 11,
     name: "John Deere Tractor",
-    price: "$200/day",
+    pricePerDay: 200,
     image: "/11.jpg",
   },
   {
     id: 12,
     name: "Heavy Duty Trailer 15000 lbs",
-    price: "$100/day",
+    pricePerDay: 100,
     image: "/12.jpg",
   },
   {
     id: 13,
     name: "F350 Super Duty Truck",
-    price: "$200/day",
+    pricePerDay: 200,
     image: "/13.jpg",
   },
   {
     id: 14,
     name: "JCB excavator",
-    price: "$200/day",
+    pricePerDay: 200,
     image: "/14.jpg",
   },
   {
     id: 15,
     name: "15 seats minibus with wheel-chair access",
-    price: "$200/day",
+    pricePerDay: 200,
     image: "/15.jpg",
   },
 ]
 
+type Language = "en" | "zh"
+
+type TranslationCopy = {
+  dialogTitle: string
+  dialogSubtitle: (product: Product) => string
+  selectLabel: string
+  selectPlaceholder: string
+  totalLabel: string
+  totalHelper: (params: { pricePerDay: string; days: number }) => string
+  emailButton: string
+  emailSubject: (product: Product) => string
+  emailBody: (params: {
+    product: Product
+    days: number
+    pricePerDay: string
+    total: string
+  }) => string
+}
+
+const formatCurrency = (value: number) =>
+  new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0,
+  }).format(value)
+
+const rentalDayOptions = Array.from({ length: 31 }, (_, index) => index + 1)
+
+const translations: Record<Language, TranslationCopy> = {
+  en: {
+    dialogTitle: "Rent Equipment",
+    dialogSubtitle: (product) =>
+      `You are preparing to rent the ${product.name}. Select the number of days to get a total estimate.`,
+    selectLabel: "Rental duration",
+    selectPlaceholder: "Select days",
+    totalLabel: "Estimated total",
+    totalHelper: ({ pricePerDay, days }) =>
+      `${pricePerDay} × ${days} ${days === 1 ? "day" : "days"}`,
+    emailButton: "Compose Email",
+    emailSubject: (product) => `Rental Inquiry: ${product.name}`,
+    emailBody: ({ product, days, pricePerDay, total }) =>
+      `Hello,\n\nI would like to rent the ${product.name} for ${days} ${
+        days === 1 ? "day" : "days"
+      }.\nDaily price: ${pricePerDay}\nEstimated total: ${total}.\n\nPlease let me know about availability.\n\nThank you.`,
+  },
+  zh: {
+    dialogTitle: "设备租赁咨询",
+    dialogSubtitle: (product) =>
+      `您正在咨询租赁 ${product.name}，请选择租赁天数以查看预估总价。`,
+    selectLabel: "租赁天数",
+    selectPlaceholder: "选择天数",
+    totalLabel: "预估总价",
+    totalHelper: ({ pricePerDay, days }) =>
+      `${pricePerDay} × ${days} 天`,
+    emailButton: "编辑邮件",
+    emailSubject: (product) => `租赁咨询：${product.name}`,
+    emailBody: ({ product, days, pricePerDay, total }) =>
+      `您好，\n\n我想租赁 ${product.name} ${days} 天。\n日租价格：${pricePerDay}\n预估总价：${total}。\n\n请告知是否有空档，谢谢！`,
+  },
+}
+
 export default function Page() {
+  const [activeLanguage, setActiveLanguage] = useState<Language>("en")
+  const [isDialogOpen, setIsDialogOpen] = useState(false)
+  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null)
+  const [rentalDays, setRentalDays] = useState<number>(1)
+  const closeCleanupRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+
+  const copy = translations[activeLanguage]
+
+  const totalPrice = selectedProduct ? selectedProduct.pricePerDay * rentalDays : 0
+  const formattedDailyPrice = selectedProduct
+    ? formatCurrency(selectedProduct.pricePerDay)
+    : ""
+  const formattedTotalPrice = selectedProduct ? formatCurrency(totalPrice) : ""
+
+  const getDayLabel = (days: number) =>
+    activeLanguage === "en"
+      ? `${days} ${days === 1 ? "day" : "days"}`
+      : `${days} 天`
+
+  const handleOpenRental = (product: Product) => {
+    setSelectedProduct(product)
+    setRentalDays(1)
+    setIsDialogOpen(true)
+  }
+
+  const handleDialogChange = (open: boolean) => {
+    if (closeCleanupRef.current) {
+      clearTimeout(closeCleanupRef.current)
+      closeCleanupRef.current = null
+    }
+
+    setIsDialogOpen(open)
+    if (!open) {
+      closeCleanupRef.current = setTimeout(() => {
+        setSelectedProduct(null)
+        closeCleanupRef.current = null
+      }, 220)
+    }
+  }
+
+  useEffect(() => {
+    return () => {
+      if (closeCleanupRef.current) {
+        clearTimeout(closeCleanupRef.current)
+      }
+    }
+  }, [])
+
+  const handleComposeEmail = () => {
+    if (!selectedProduct) {
+      return
+    }
+
+    const subject = encodeURIComponent(copy.emailSubject(selectedProduct))
+    const body = encodeURIComponent(
+      copy.emailBody({
+        product: selectedProduct,
+        days: rentalDays,
+        pricePerDay: formattedDailyPrice,
+        total: formattedTotalPrice,
+      }),
+    )
+
+    window.location.href = `mailto:niusteve16@gmail.com?subject=${subject}&body=${body}`
+  }
+
   return (
-    <Tabs defaultValue="en">
+    <Tabs
+      value={activeLanguage}
+      onValueChange={(value) => setActiveLanguage(value as Language)}
+    >
       <div className="font-sans">
         <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-sm">
           <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-6">
@@ -160,12 +315,31 @@ export default function Page() {
                 {/* Products Grid */}
                 <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
                   {products.map((product) => (
-                    <Card key={product.id}>
+                    <Card
+                      key={product.id}
+                      role="button"
+                      tabIndex={0}
+                      onClick={() => handleOpenRental(product)}
+                      onKeyDown={(event) => {
+                        if (event.key === "Enter" || event.key === " ") {
+                          event.preventDefault()
+                          handleOpenRental(product)
+                        }
+                      }}
+                      className="cursor-pointer transition-shadow hover:shadow-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
+                      aria-label={`${product.name} - ${formatCurrency(product.pricePerDay)}/day`}
+                    >
                       <CardContent className="p-0">
-                        <img src={product.image} alt={product.name} className="h-60 w-full object-cover" />
+                        <img
+                          src={product.image}
+                          alt={product.name}
+                          className="h-60 w-full object-cover"
+                        />
                         <div className="p-4">
                           <h3 className="font-medium">{product.name}</h3>
-                          <p className="text-sm text-gray-600">{product.price}</p>
+                          <p className="text-sm text-gray-600">
+                            {formatCurrency(product.pricePerDay)}/day
+                          </p>
                         </div>
                       </CardContent>
                     </Card>
@@ -300,12 +474,31 @@ export default function Page() {
                 {/* Products Grid */}
                 <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
                   {products.map((product) => (
-                    <Card key={product.id}>
+                    <Card
+                      key={product.id}
+                      role="button"
+                      tabIndex={0}
+                      onClick={() => handleOpenRental(product)}
+                      onKeyDown={(event) => {
+                        if (event.key === "Enter" || event.key === " ") {
+                          event.preventDefault()
+                          handleOpenRental(product)
+                        }
+                      }}
+                      className="cursor-pointer transition-shadow hover:shadow-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
+                      aria-label={`${product.name} - ${formatCurrency(product.pricePerDay)}/天`}
+                    >
                       <CardContent className="p-0">
-                        <img src={product.image} alt={product.name} className="h-60 w-full object-cover" />
+                        <img
+                          src={product.image}
+                          alt={product.name}
+                          className="h-60 w-full object-cover"
+                        />
                         <div className="p-4">
                           <h3 className="font-medium">{product.name}</h3>
-                          <p className="text-sm text-gray-600">{product.price}</p>
+                          <p className="text-sm text-gray-600">
+                            {formatCurrency(product.pricePerDay)}/天
+                          </p>
                         </div>
                       </CardContent>
                     </Card>
@@ -407,6 +600,81 @@ export default function Page() {
             </div>
           </TabsContent>
         </main>
+
+        <Dialog open={isDialogOpen} onOpenChange={handleDialogChange}>
+          <DialogContent className="sm:max-w-lg">
+            {selectedProduct ? (
+              <div className="space-y-6">
+                <DialogHeader>
+                  <DialogTitle>{copy.dialogTitle}</DialogTitle>
+                  <DialogDescription>
+                    {copy.dialogSubtitle(selectedProduct)}
+                  </DialogDescription>
+                </DialogHeader>
+
+                <div className="flex items-center gap-4 rounded-lg border p-4">
+                  <img
+                    src={selectedProduct.image}
+                    alt={selectedProduct.name}
+                    className="h-16 w-16 rounded-md object-cover"
+                  />
+                  <div>
+                    <p className="text-sm font-medium">{selectedProduct.name}</p>
+                    <p className="text-sm text-muted-foreground">
+                      {formattedDailyPrice}
+                      {activeLanguage === "en" ? "/day" : "/天"}
+                    </p>
+                  </div>
+                </div>
+
+                <div className="space-y-2">
+                  <span className="text-sm font-medium text-foreground">
+                    {copy.selectLabel}
+                  </span>
+                  <Select
+                    value={String(rentalDays)}
+                    onValueChange={(value) => setRentalDays(Number(value))}
+                  >
+                    <SelectTrigger className="w-full">
+                      <SelectValue placeholder={copy.selectPlaceholder} />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {rentalDayOptions.map((day) => (
+                        <SelectItem key={day} value={String(day)}>
+                          {getDayLabel(day)}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                <div className="rounded-lg border p-4">
+                  <p className="text-sm text-muted-foreground">
+                    {copy.totalLabel}
+                  </p>
+                  <p className="text-2xl font-semibold">
+                    {formattedTotalPrice}
+                  </p>
+                  <p className="text-xs text-muted-foreground">
+                    {copy.totalHelper({
+                      pricePerDay: formattedDailyPrice,
+                      days: rentalDays,
+                    })}
+                  </p>
+                </div>
+
+                <DialogFooter>
+                  <Button
+                    className="w-full sm:w-auto sm:ml-auto"
+                    onClick={handleComposeEmail}
+                  >
+                    {copy.emailButton}
+                  </Button>
+                </DialogFooter>
+              </div>
+            ) : null}
+          </DialogContent>
+        </Dialog>
       </div>
     </Tabs>
   )
