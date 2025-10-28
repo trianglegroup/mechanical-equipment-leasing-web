@@ -309,7 +309,7 @@ export default function Page() {
               <section className="mt-32">
                 <h2 className="text-4xl font-light mb-8">Equipment List</h2>
                 <p className="max-w-xl text-sm leading-relaxed text-gray-600 mb-16">
-                  We offer a wide range of professional construction machinery. All our equipment undergoes rigorous inspection and maintenance to ensure reliable support for your project.
+                  We offer a wide range of professional construction machinery. All our equipment undergoes rigorous inspection and maintenance to ensure reliable support for your project. Click on any equipment card to select rental duration (1-31 days), view real-time price calculations, and send us an inquiry email.
                 </p>
 
                 {/* Products Grid */}
@@ -468,7 +468,7 @@ export default function Page() {
               <section className="mt-32">
                 <h2 className="text-4xl font-light mb-8">设备展示</h2>
                 <p className="max-w-xl text-sm leading-relaxed text-gray-600 mb-16">
-                  我们提供各类专业工程机械设备，所有设备均经过严格检测和维护，确保为您的项目提供可靠的机械支持。
+                  我们提供各类专业工程机械设备，所有设备均经过严格检测和维护，确保为您的项目提供可靠的机械支持。点击任意设备卡片可选择租赁天数（1-31天），实时查看价格计算，并发送咨询邮件。
                 </p>
 
                 {/* Products Grid */}
