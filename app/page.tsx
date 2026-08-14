@@ -119,6 +119,18 @@ const products: Product[] = [
     pricePerDay: 200,
     image: "/15.jpg",
   },
+  {
+    id: 16,
+    name: "2000 Mitsubishi Fuso Box Truck",
+    pricePerDay: 200,
+    image: "/16.jpg",
+  },
+  {
+    id: 17,
+    name: "John Deere 5100E Utility Tractor (100HP)",
+    pricePerDay: 300,
+    image: "/17.jpg",
+  },
 ]
 
 type Language = "en" | "zh"
